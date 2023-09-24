@@ -34,23 +34,9 @@ async def main():
             "--disable-dev-shm-usage",
             "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
         ])
-
-        # browser = playwright.chromium.launch_persistent_context(
-        #     user_data_dir,
-        #     headless=False,
-        #     args=[
-        #         "--disable-blink-features=AutomationControlled",
-        #         "--disable-extensions",
-        #         "--disable-application-cache",
-        #         "--no-sandbox",
-        #         "--disable-setuid-sandbox",
-        #         "--disable-dev-shm-usage",
-        #     ]
-        # )
-        # page = browser.new_page(extra_http_headers={
-        #     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 YaBrowser/23.7.5.734 Yowser/2.5 Safari/537.36"
-        # })
+        
         page = await browser.new_page()
+        # Не нужно (бесполезно)
         await page.add_init_script("""
                 delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
                 delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
@@ -70,8 +56,8 @@ async def main():
             print([await i.inner_text() for i in sub_categories])
             for sub_cat in sub_categories[:5]:
                 sub_href = await sub_cat.get_attribute("href")
-                # print(sub_href)
                 sub_page = await browser.new_page()
+                # Не нужно (бесполезно)
                 await sub_page.add_init_script("""
                                 delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
                                 delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
